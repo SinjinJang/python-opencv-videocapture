@@ -14,12 +14,16 @@ def do_main(dev_id, dir_out, img_sz):
 
     if cap.isOpened:
         scr_sz = np.array([cap.get(3), cap.get(4)], dtype='int')
-        print('screen size: {0}, image size: {1}'.format(scr_sz, img_sz))
-        
+
+        # make sure image size are within screen size
+        img_sz = np.minimum(scr_sz, img_sz)
+
         # select the area of image if your specified width and height
         if img_sz[0] > 0 and img_sz[1] > 0:
             p0 = (scr_sz - img_sz) // 2
             p1 = p0 + img_sz
+
+        print('screen size: {0}, image size: {1}'.format(scr_sz, img_sz))
 
     while True:
         ret, fram = cap.read()
