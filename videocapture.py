@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 
 
-def do_main(dev_id, dir_out, img_sz):
+def do_main(dev_id, dir_out, cap_sz):
     cap = cv2.VideoCapture(dev_id)
     
     p0, p1 = None, None
@@ -16,14 +16,14 @@ def do_main(dev_id, dir_out, img_sz):
         scr_sz = np.array([cap.get(3), cap.get(4)], dtype='int')
 
         # make sure image size are within screen size
-        img_sz = np.minimum(scr_sz, img_sz)
+        cap_sz = np.minimum(scr_sz, cap_sz)
 
         # select the area of image if your specified width and height
-        if img_sz[0] > 0 and img_sz[1] > 0:
-            p0 = (scr_sz - img_sz) // 2
-            p1 = p0 + img_sz
+        if cap_sz[0] > 0 and cap_sz[1] > 0:
+            p0 = (scr_sz - cap_sz) // 2
+            p1 = p0 + cap_sz
 
-        print('screen size: {0}, image size: {1}'.format(scr_sz, img_sz))
+        print('screen size: {0}, capture size: {1}'.format(scr_sz, cap_sz))
 
     while True:
         ret, fram = cap.read()
