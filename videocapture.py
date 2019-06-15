@@ -4,18 +4,30 @@ import os
 import sys
 
 import cv2
+import numpy as np
 
 
-def do_main(dev_id, dir_out):
+def do_main(dev_id, dir_out, img_sz):
     cap = cv2.VideoCapture(dev_id)
+    
+    p0, p1 = None, None
+
     if cap.isOpened:
-        print('{0} x {1}'.format(cap.get(3), cap.get(4)))
+        scr_sz = np.array([cap.get(3), cap.get(4)], dtype='int')
+        print('screen size: {0}, image size: {1}'.format(scr_sz, img_sz))
+        
+        # select the area of image if your specified width and height
+        if img_sz[0] > 0 and img_sz[1] > 0:
+            p0 = (scr_sz - img_sz) // 2
+            p1 = p0 + img_sz
 
     while True:
         ret, fram = cap.read()
         
         if ret:
             image = cv2.cvtColor(fram, cv2.COLOR_RGB2BGR)
+            if p0 is not None and p1 is not None:
+                image = cv2.rectangle(image, tuple(p0), tuple(p1), (0, 255, 0), 2)
             cv2.imshow('image', image)
             
             k = cv2.waitKey(100) & 0xFF
@@ -38,6 +50,10 @@ if __name__ == '__main__':
                         default=0, help='specify device id of webcam')
     parser.add_argument('-o', '--output-directory', type=str,
                         default='img-captured', help='specify directory to save captured images')
+    parser.add_argument('-W', '--width', type=int,
+                        default=-1, help='specify width of capturing area')
+    parser.add_argument('-H', '--height', type=int,
+                        default=-1, help='specify height of capturing area')
     args = parser.parse_args()
 
     # check and initialize
@@ -45,4 +61,4 @@ if __name__ == '__main__':
         os.mkdir(args.output_directory)
 
     # run main job for image cropping
-    do_main(args.device_id, args.output_directory)
+    do_main(args.device_id, args.output_directory, np.array([args.width, args.height], dtype='int'))
