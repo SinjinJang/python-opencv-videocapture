@@ -15,7 +15,7 @@ def do_main(dev_id, dir_out, cap_sz):
     if cap.isOpened:
         scr_sz = np.array([cap.get(3), cap.get(4)], dtype='int')
 
-        # make sure image size are within screen size
+        # make sure capture size are within screen size
         cap_sz = np.minimum(scr_sz, cap_sz)
 
         # select the area of image if your specified width and height
