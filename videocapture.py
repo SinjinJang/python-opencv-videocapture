@@ -6,8 +6,8 @@ import sys
 import cv2
 
 
-def do_main(dir_out):
-    cap = cv2.VideoCapture(0)
+def do_main(dev_id, dir_out):
+    cap = cv2.VideoCapture(dev_id)
     if cap.isOpened:
         print('{0} x {1}'.format(cap.get(3), cap.get(4)))
 
@@ -34,6 +34,8 @@ def do_main(dir_out):
 if __name__ == '__main__':
     # parsing arguments
     parser = argparse.ArgumentParser(description='Command line argument')
+    parser.add_argument('-d', '--device-id', type=int,
+                        default=0, help='specify device id of webcam')
     parser.add_argument('-o', '--output-directory', type=str,
                         default='img-captured', help='specify directory to save captured images')
     args = parser.parse_args()
@@ -43,4 +45,4 @@ if __name__ == '__main__':
         os.mkdir(args.output_directory)
 
     # run main job for image cropping
-    do_main(args.output_directory)
+    do_main(args.device_id, args.output_directory)
