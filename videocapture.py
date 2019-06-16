@@ -13,7 +13,7 @@ def do_main(dev_id, dir_out, cap_sz):
     p0, p1 = None, None
 
     if cap.isOpened:
-        scr_sz = np.array([cap.get(3), cap.get(4)], dtype='int')
+        scr_sz = np.array([cap.get(3), cap.get(4)], dtype=int)
 
         # make sure capture size are within screen size
         cap_sz[0] = min(scr_sz[0], cap_sz[0]) if cap_sz[0] > -1 else scr_sz[0]
@@ -64,4 +64,4 @@ if __name__ == '__main__':
         os.mkdir(args.output_directory)
 
     # run main job for image cropping
-    do_main(args.device_id, args.output_directory, np.array([args.width, args.height], dtype='int'))
+    do_main(args.device_id, args.output_directory, np.array([args.width, args.height], dtype=int))
