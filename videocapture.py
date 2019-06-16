@@ -16,8 +16,7 @@ def do_main(dev_id, dir_out, cap_sz):
         scr_sz = np.array([cap.get(3), cap.get(4)], dtype=int)
 
         # make sure capture size are within screen size
-        cap_sz[0] = min(scr_sz[0], cap_sz[0]) if cap_sz[0] > -1 else scr_sz[0]
-        cap_sz[1] = min(scr_sz[1], cap_sz[1]) if cap_sz[1] > -1 else scr_sz[1]
+        cap_sz = np.minimum(cap_sz, scr_sz)
 
         # select the area of capture image
         p0 = (scr_sz - cap_sz) // 2
@@ -54,9 +53,9 @@ if __name__ == '__main__':
     parser.add_argument('-o', '--output-directory', type=str,
                         default='img-captured', help='specify directory to save captured images')
     parser.add_argument('-W', '--width', type=int,
-                        default=-1, help='specify width of capturing area')
+                        default=65535, help='specify width of capturing area')
     parser.add_argument('-H', '--height', type=int,
-                        default=-1, help='specify height of capturing area')
+                        default=65535, help='specify height of capturing area')
     args = parser.parse_args()
 
     # check and initialize
