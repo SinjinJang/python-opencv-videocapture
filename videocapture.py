@@ -38,8 +38,8 @@ def do_main(dev_id, dir_out, cap_sz):
                 break
             elif k == ord('s'):
                 now = datetime.datetime.now()
-                filename = str(dev_id) + '_' + now.strftime('%Y-%m-%d_%H-%M-%S')
-                cv2.imwrite(os.path.join(dir_out, filename + '.png'), image)
+                filename = str(dev_id) + '_' + now.strftime('%Y-%m-%d_%H-%M-%S') + '.png'
+                cv2.imwrite(os.path.join(dir_out, filename), image)
         else:
             print('error')
 
