@@ -9,23 +9,22 @@ import numpy as np
 
 def do_main(dev_id, dir_out, cap_sz):
     cap = cv2.VideoCapture(dev_id)
-    
-    p0, p1 = None, None
 
-    if cap.isOpened():
-        scr_sz = np.array([cap.get(3), cap.get(4)], dtype=int)
-
-        # make sure capture size are within screen size
-        cap_sz = np.minimum(cap_sz, scr_sz)
-
-        # select the area of capture image
-        p0 = (scr_sz - cap_sz) // 2
-        p1 = p0 + cap_sz
-
-        print('screen size: {0}, capture size: {1}'.format(scr_sz, cap_sz))
-    else:
+    if not cap.isOpened():
         print('The capture device [{}] is not ready.'.format(dev_id))
         exit(1)
+
+    # check entire screen size
+    scr_sz = np.array([cap.get(3), cap.get(4)], dtype=int)
+
+    # make sure capture size are within screen size
+    cap_sz = np.minimum(cap_sz, scr_sz)
+
+    # select the area of capture image
+    p0 = (scr_sz - cap_sz) // 2
+    p1 = p0 + cap_sz
+
+    print('screen size: {0}, capture size: {1}'.format(scr_sz, cap_sz))
 
     while True:
         ret, fram = cap.read()
