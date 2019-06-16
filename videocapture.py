@@ -39,7 +39,7 @@ def do_main(dev_id, dir_out, cap_sz):
             elif k == ord('s'):
                 now = datetime.datetime.now()
                 filename = str(dev_id) + '_' + now.strftime('%Y-%m-%d_%H-%M-%S') + '.png'
-                cv2.imwrite(os.path.join(dir_out, filename), image)
+                cv2.imwrite(os.path.join(dir_out, filename), image[p0[1]:p1[1], p0[0]:p1[0]])
         else:
             print('error')
 
