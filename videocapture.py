@@ -30,8 +30,7 @@ def do_main(dev_id, dir_out, cap_sz):
         
         if ret:
             image = cv2.cvtColor(fram, cv2.COLOR_RGBA2RGB)
-            if p0 is not None and p1 is not None:
-                image = cv2.rectangle(image, tuple(p0), tuple(p1), (0, 255, 0), 2)
+            image = cv2.rectangle(image, tuple(p0), tuple(p1), (0, 255, 0), 2)
             cv2.imshow('image', image)
             
             k = cv2.waitKey(100) & 0xFF
