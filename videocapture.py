@@ -20,7 +20,7 @@ def do_main(dev_id, dir_out, cap_sz):
     # make sure capture size are within screen size
     cap_sz = np.minimum(cap_sz, scr_sz)
 
-    # select the area of capture image
+    # get the points of capture image
     p0 = (scr_sz - cap_sz) // 2
     p1 = p0 + cap_sz
 
