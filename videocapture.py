@@ -16,12 +16,12 @@ def do_main(dev_id, dir_out, cap_sz):
         scr_sz = np.array([cap.get(3), cap.get(4)], dtype='int')
 
         # make sure capture size are within screen size
-        cap_sz = np.minimum(scr_sz, cap_sz)
+        cap_sz[0] = min(scr_sz[0], cap_sz[0]) if cap_sz[0] > -1 else scr_sz[0]
+        cap_sz[1] = min(scr_sz[1], cap_sz[1]) if cap_sz[1] > -1 else scr_sz[1]
 
-        # select the area of image if your specified width and height
-        if cap_sz[0] > 0 and cap_sz[1] > 0:
-            p0 = (scr_sz - cap_sz) // 2
-            p1 = p0 + cap_sz
+        # select the area of capture image
+        p0 = (scr_sz - cap_sz) // 2
+        p1 = p0 + cap_sz
 
         print('screen size: {0}, capture size: {1}'.format(scr_sz, cap_sz))
 
