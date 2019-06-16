@@ -65,5 +65,5 @@ if __name__ == '__main__':
     if not os.path.isdir(args.output_directory):
         os.mkdir(args.output_directory)
 
-    # run main job for image cropping
+    # run main job for image capturing
     do_main(args.device_id, args.output_directory, np.array([args.width, args.height], dtype=int))
