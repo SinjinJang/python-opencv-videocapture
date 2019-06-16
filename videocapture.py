@@ -34,7 +34,7 @@ def do_main(dev_id, dir_out, cap_sz):
             cv2.imshow('image', image)
             
             k = cv2.waitKey(100) & 0xFF
-            if k == ord('q'):
+            if k == ord('q') or cv2.getWindowProperty('image', 0) == -1:
                 break
             elif k == ord('s'):
                 now = datetime.datetime.now()
