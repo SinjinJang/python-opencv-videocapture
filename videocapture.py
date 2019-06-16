@@ -23,6 +23,9 @@ def do_main(dev_id, dir_out, cap_sz):
         p1 = p0 + cap_sz
 
         print('screen size: {0}, capture size: {1}'.format(scr_sz, cap_sz))
+    else:
+        print('The capture device [{}] is not ready.'.format(dev_id))
+        exit(1)
 
     while True:
         ret, fram = cap.read()
