@@ -41,6 +41,7 @@ def do_main(dev_id, dir_out, cap_sz):
                 cv2.imwrite(os.path.join(dir_out, filename), image[p0[1]:p1[1], p0[0]:p1[0]])
         else:
             print('error')
+            break
 
     cv2.destroyAllWindows()
 
