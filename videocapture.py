@@ -12,7 +12,7 @@ def do_main(dev_id, dir_out, cap_sz):
     
     p0, p1 = None, None
 
-    if cap.isOpened:
+    if cap.isOpened():
         scr_sz = np.array([cap.get(3), cap.get(4)], dtype=int)
 
         # make sure capture size are within screen size
